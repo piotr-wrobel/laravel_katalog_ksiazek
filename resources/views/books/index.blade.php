@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.books')
 
 @section('content')
 Welcome My LORD !

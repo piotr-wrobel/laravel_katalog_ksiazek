@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('pages', 'PagesController');
+Route::resource('books', 'BooksController');
 
 Auth::routes();
 
