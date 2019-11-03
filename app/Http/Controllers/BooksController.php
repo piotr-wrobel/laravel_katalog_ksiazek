@@ -23,7 +23,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(10);
+        $books = Book::select(['books.*','authors.name','authors.surname'])->join('authors', 'books.author', '=', 'authors.id')->orderBy('publication_date', 'DESC')->paginate(10);
         return view('books.index', compact('books'));
     }
 

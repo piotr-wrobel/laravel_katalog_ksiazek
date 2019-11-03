@@ -26,12 +26,6 @@
             height: 100vh;
             margin: 0;
         }
-        /*span {
-            border: 1px solid #7d2929;
-            padding: 5px;
-            margin: 2px;
-        }*/
-
         .full-height {
             height: 100vh;
         }
