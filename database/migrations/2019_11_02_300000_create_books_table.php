@@ -19,8 +19,7 @@ class CreateBooksTable extends Migration
             $table->integer('author')->unsigned();
             $table->foreign('author')->references('id')->on('authors');
             $table->date('publication_date');
-            $table->string('translation', 50);
-
+            $table->string('translation', 60);
             $table->timestamps();
         });
     }
