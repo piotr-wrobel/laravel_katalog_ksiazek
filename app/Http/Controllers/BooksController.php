@@ -3,9 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
 
 class BooksController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return view('books.index');
+        $books = Book::paginate(10);
+        return view('books.index', compact('books'));
     }
 
     /**
