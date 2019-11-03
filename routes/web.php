@@ -27,6 +27,10 @@ Route::get('books/search',[
     'uses' => 'BooksController@search',
     'as' => 'books.search'
 ]);
+Route::post('books/show',[
+    'uses' => 'BooksController@show',
+    'as' => 'books.show'
+]);
 
 Auth::routes();
 

@@ -60,12 +60,28 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $content = $request->input('content');
+        $title = $request->input('title');
+        switch($title)
+        {
+            case 'T':
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('title', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                break;
+            case 'A':
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('authors.name', 'like', '%'.$content.'%')->orWhere('authors.surname', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                break;
+                case 'D':
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('publication_date', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                break;
+            default:
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->orderBy('publication_date', 'DESC')->paginate(10);
+        }
+
+        return view('books.index', compact('books'));
     }
 
     /**
