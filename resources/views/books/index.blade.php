@@ -4,7 +4,11 @@
 Katalog książek
 @endsection
 
-@section('table')
+@section('buttons')
+<a class="btn btn-primary" href="{{route('books.create')}}">Dodaj pozycję</a>
+<a class="btn btn-primary" href="{{route('books.search')}}">Szukaj pozycji</a>
+@endsection
+@section('content')
     <table class="table table-hover">
         <tr>
             <th>Tytuł</th>

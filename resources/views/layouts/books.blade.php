@@ -72,11 +72,12 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="content">
+        @yield('buttons')
         <div class="title m-b-md">
             @yield('title')
         </div>
         <div class="flex-center">
-            @yield('table')
+            @yield('content')
         </div>
         @yield('paginator')
     </div>

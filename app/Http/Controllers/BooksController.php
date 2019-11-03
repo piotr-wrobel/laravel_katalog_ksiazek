@@ -49,6 +49,15 @@ class BooksController extends Controller
     }
 
     /**
+     * Show the form for searching resources.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        return view('books.search');
+    }
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

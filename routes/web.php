@@ -14,7 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('books', 'BooksController');
+//Route::resource('books', 'BooksController');
+Route::get('books',[
+    'uses' => 'BooksController@index',
+    'as' => 'books.index'
+]);
+Route::get('books/create',[
+    'uses' => 'BooksController@create',
+    'as' => 'books.create'
+]);
+Route::get('books/search',[
+    'uses' => 'BooksController@search',
+    'as' => 'books.search'
+]);
 
 Auth::routes();
 
