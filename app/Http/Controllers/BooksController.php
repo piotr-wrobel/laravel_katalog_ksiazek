@@ -37,7 +37,16 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createAuthor()
+    {
+        //return view('books.create');
     }
 
     /**
@@ -48,7 +57,8 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $author = $request->input('author');
+        echo $author;
     }
 
     /**

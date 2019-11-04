@@ -23,6 +23,10 @@ Route::get('books/create',[
     'uses' => 'BooksController@create',
     'as' => 'books.create'
 ]);
+Route::get('books/create/author',[
+    'uses' => 'BooksController@createAuthor',
+    'as' => 'books.createAuthor'
+]);
 Route::get('books/search',[
     'uses' => 'BooksController@search',
     'as' => 'books.search'
@@ -30,6 +34,10 @@ Route::get('books/search',[
 Route::post('books/show',[
     'uses' => 'BooksController@show',
     'as' => 'books.show'
+]);
+Route::post('books/store',[
+    'uses' => 'BooksController@store',
+    'as' => 'books.store'
 ]);
 
 Auth::routes();
