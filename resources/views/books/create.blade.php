@@ -26,14 +26,14 @@
         {!! Form::text('publication_date', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('country', "Język/Tłumaczenie", ['class'=>'form-inline']) !!}
-        {!! Form::select('country', ['1' => 'Poland', '2' => 'Panama', '3' => 'Austria'], null, ['placeholder' => '','class'=>'form-control']); !!}
+        {!! Form::label('translation', "Język/Tłumaczenie", ['class'=>'form-inline']) !!}
+        {!! Form::select('translation', ['Poland' => 'Poland', 'Panama' => 'Panama', 'Austria' => 'Austria'], null, ['placeholder' => '','class'=>'form-control']); !!}
     </div>
 
     <div class="form-group">
         {!! Form::submit('Zapisz', ['class'=>'btn btn-primary']) !!}
         {!! link_to_route('books.createAuthor', 'Nowy Autor', [], ['class'=>'btn btn-primary']) !!}
-        {!! link_to(URL::previous(), 'Powrót', ['class' => 'btn btn-default']) !!}
+        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-default']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

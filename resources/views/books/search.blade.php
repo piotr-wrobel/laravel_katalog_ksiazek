@@ -15,7 +15,7 @@
 
     <div class="form-group">
         {!! Form::label('title', "Szukaj po:", ['class'=>'form-inline']) !!}
-        {!! Form::select('title', ['T' => 'Tutuł', 'A' => 'Autor', 'D' => 'Data wydania'], 'T', ['class'=>'form-control']); !!}
+        {!! Form::select('title', ['T' => 'Tutuł', 'A' => 'Autor', 'J' => 'Język/Tłumaczenie'], 'T', ['class'=>'form-control']); !!}
     </div>
 
     <div class="form-group">
@@ -25,7 +25,7 @@
 
     <div class="form-group">
         {!! Form::submit('Szukaj', ['class'=>'btn btn-primary']) !!}
-        {!! link_to(URL::previous(), 'Powrót', ['class' => 'btn btn-default']) !!}
+        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-default']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

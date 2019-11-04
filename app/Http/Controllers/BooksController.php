@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
+use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
 use App\Book;
 
@@ -55,10 +57,10 @@ class BooksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        $author = $request->input('author');
-        echo $author;
+        Book::create($request->all());
+        return redirect()->route('books.index');
     }
 
     /**
@@ -75,7 +77,7 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(SearchRequest $request)
     {
         $content = $request->input('content');
         $title = $request->input('title');
@@ -96,10 +98,10 @@ class BooksController extends Controller
                     orderBy('publication_date', 'DESC')->
                     get();
                 break;
-                case 'D':
+                case 'J':
                 $books = Book::join('authors', 'books.author', '=', 'authors.id')->
                     select(['books.*','authors.name','authors.surname'])->
-                    where('publication_date', 'like', '%'.$content.'%')->
+                    where('translation', 'like', '%'.$content.'%')->
                     orderBy('publication_date', 'DESC')->
                     get();
                 break;
