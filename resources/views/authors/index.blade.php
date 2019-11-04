@@ -22,15 +22,17 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Kraj</th>
+            <th/><th/>
         </tr>
         @foreach($authors as $author)
             <tr>
                 <td>{{ $author->name  }}</td>
                 <td>{{ $author->surname  }}</td>
                 <td>{{ $author->country  }}</td>
+                <td><a class="btn btn-info" href="{{route('authors.edit', $author)}}">Edytuj</a></td>
                 <td>
                     {!! Form::model($author, ['route' => ['authors.delete', $author], 'method' => 'DELETE']) !!}
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger">Usuń</button>
                     {!! Form::close() !!}
                 </td>
             </tr>

@@ -50,9 +50,20 @@ Route::post('authors/store',[
     'uses' => 'AuthorsController@store',
     'as' => 'authors.store'
 ]);
+
 Route::delete('authors/{author}',[
     'uses' => 'AuthorsController@destroy',
     'as' => 'authors.delete'
+]);
+
+Route::get('authors/edit/{author}',[
+    'uses' => 'AuthorsController@edit',
+    'as' => 'authors.edit'
+]);
+
+Route::put('authors/{author}',[
+    'uses' => 'AuthorsController@update',
+    'as' => 'authors.update'
 ]);
 
 Auth::routes();

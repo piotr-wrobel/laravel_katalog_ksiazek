@@ -65,7 +65,7 @@ class AuthorsController extends Controller
      */
     public function search()
     {
-        return view('books.search');
+        //
     }
 
     /**
@@ -85,21 +85,26 @@ class AuthorsController extends Controller
      * @param int $id
      * @return void
      */
-    public function edit($id)
+    public function edit(Author $author)
     {
-        //
+        $countries = Author::select(['country'])->
+        groupBy('country')->
+        orderBy('country')->
+        get();
+        return view('authors.edit',compact(['author','countries']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param AuthorRequest $request
+     * @param Author $author
      * @return void
      */
-    public function update(Request $request, $id)
+    public function update(AuthorRequest $request, Author $author)
     {
-        //
+        $author->update($request->all());
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -116,6 +121,6 @@ class AuthorsController extends Controller
         }catch(Exception $e) {
             return redirect()->route('authors.index')->with('warning', 'Nie można usunąć autora '.$author->name.' '.$author->surname.', istnieje powiązana z nim pozycja');
         }
-        return redirect()->route('authors.index')->with('success', 'Autor usunięty');
+        return redirect()->route('authors.index')->with('success', 'Autor usunięty poprawnie');
     }
 }
