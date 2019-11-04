@@ -23,7 +23,10 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::select(['books.*','authors.name','authors.surname'])->join('authors', 'books.author', '=', 'authors.id')->orderBy('publication_date', 'DESC')->paginate(10);
+        $books = Book::join('authors', 'books.author', '=', 'authors.id')->
+            select(['books.*','authors.name','authors.surname'])->
+            orderBy('publication_date', 'DESC')->
+            paginate(10);
         return view('books.index', compact('books'));
     }
 
@@ -69,19 +72,35 @@ class BooksController extends Controller
         switch($title)
         {
             case 'T':
-                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('title', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->
+                    select(['books.*','authors.name','authors.surname'])->
+                    where('title', 'like', '%'.$content.'%')->
+                    orderBy('publication_date', 'DESC')->
+                    get();
                 break;
             case 'A':
-                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('authors.name', 'like', '%'.$content.'%')->orWhere('authors.surname', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->
+                    select(['books.*','authors.name','authors.surname'])->
+                    where('authors.name', 'like', '%'.$content.'%')->
+                    orWhere('authors.surname', 'like', '%'.$content.'%')->
+                    orderBy('publication_date', 'DESC')->
+                    get();
                 break;
                 case 'D':
-                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->where('publication_date', 'like', '%'.$content.'%')->orderBy('publication_date', 'DESC')->paginate(10);
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->
+                    select(['books.*','authors.name','authors.surname'])->
+                    where('publication_date', 'like', '%'.$content.'%')->
+                    orderBy('publication_date', 'DESC')->
+                    get();
                 break;
             default:
-                $books = Book::join('authors', 'books.author', '=', 'authors.id')->select(['books.*','authors.name','authors.surname'])->orderBy('publication_date', 'DESC')->paginate(10);
+                $books = Book::join('authors', 'books.author', '=', 'authors.id')->
+                    select(['books.*','authors.name','authors.surname'])->
+                    orderBy('publication_date', 'DESC')->
+                    get();
         }
 
-        return view('books.index', compact('books'));
+        return view('books.found', compact('books'));
     }
 
     /**

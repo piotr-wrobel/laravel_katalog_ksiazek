@@ -1,7 +1,7 @@
 @extends('layouts.books')
 
 @section('title')
-Katalog książek
+    Wyniki wyszukiwania
 @endsection
 
 @section('content')
@@ -24,10 +24,9 @@ Katalog książek
 @endsection
 
 @section('paginator')
-    {{ $books->links() }}
 @endsection
 
 @section('buttons')
-    <a class="btn btn-primary" href="{{route('books.create')}}">Dodaj pozycję</a>
-    <a class="btn btn-primary" href="{{route('books.search')}}">Szukaj pozycji</a>
+    <a class="btn btn-primary" href="{{route('books.index')}}">Pokaż wszystkie</a>
+    <a class="btn btn-primary" href="{{route('books.search')}}">Szukaj ponownie</a>
 @endsection
