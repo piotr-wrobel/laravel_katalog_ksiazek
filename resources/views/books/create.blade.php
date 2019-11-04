@@ -37,9 +37,9 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Zapisz', ['class'=>'btn btn-primary']) !!}
+        {!! Form::submit('Zapisz', ['class'=>'btn btn-danger']) !!}
         {!! link_to_route('authors.index', 'Edytuj Autorów', [], ['class'=>'btn btn-primary']) !!}
-        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-default']) !!}
+        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 @endsection

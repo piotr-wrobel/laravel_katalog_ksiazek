@@ -25,7 +25,7 @@
 
     <div class="form-group">
         {!! Form::submit('Szukaj', ['class'=>'btn btn-primary']) !!}
-        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-default']) !!}
+        {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 @endsection
