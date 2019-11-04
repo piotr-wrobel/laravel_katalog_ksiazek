@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Http\Requests\AuthorRequest;
 use App\Http\Requests\BookRequest;
-use App\Http\Requests\SearchRequest;
+use App\Http\Requests\BookSearchRequest;
 use Illuminate\Http\Request;
 use App\Book;
 
@@ -38,6 +39,11 @@ class AuthorsController extends Controller
      */
     public function create()
     {
+        $countries = Author::select(['country'])->
+        groupBy('country')->
+        orderBy('country')->
+        get();
+        return view('authors.create',compact('countries'));
     }
 
     /**
@@ -46,9 +52,10 @@ class AuthorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
-
+        Author::create($request->all());
+        return redirect()->route('authors.index');
     }
 
     /**

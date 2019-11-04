@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Http\Requests\BookRequest;
-use App\Http\Requests\SearchRequest;
+use App\Http\Requests\BookSearchRequest;
 use Illuminate\Http\Request;
 use App\Book;
 
@@ -82,7 +82,7 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(SearchRequest $request)
+    public function show(BookSearchRequest $request)
     {
         $content = $request->input('content');
         $title = $request->input('title');

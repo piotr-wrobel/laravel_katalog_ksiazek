@@ -46,6 +46,11 @@ Route::get('authors/create',[
     'as' => 'authors.create'
 ]);
 
+Route::post('authors/store',[
+    'uses' => 'AuthorsController@store',
+    'as' => 'authors.store'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

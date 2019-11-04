@@ -27,4 +27,6 @@
 
 @section('buttons')
     <a class="btn btn-primary" href="{{route('authors.create')}}">Nowa pozycja</a>
+    <a class="btn btn-primary" href="{{route('books.create')}}">Powrót</a>
+    <a class="btn btn-primary" href="{{route('books.index')}}">Lista pozycji</a>
 @endsection
