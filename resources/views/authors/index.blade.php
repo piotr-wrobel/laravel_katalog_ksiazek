@@ -1,5 +1,17 @@
 @extends('layouts.authors')
 
+@section('messages')
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+@endsection
 @section('title')
     Lista Autorów
 @endsection
@@ -16,6 +28,11 @@
                 <td>{{ $author->name  }}</td>
                 <td>{{ $author->surname  }}</td>
                 <td>{{ $author->country  }}</td>
+                <td>
+                    {!! Form::model($author, ['route' => ['authors.delete', $author], 'method' => 'DELETE']) !!}
+                        <button class="btn btn-danger">Delete</button>
+                    {!! Form::close() !!}
+                </td>
             </tr>
         @endforeach
     </table>
