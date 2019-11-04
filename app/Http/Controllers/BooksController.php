@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
@@ -39,7 +40,11 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+
+        $authors = Author::select(['id','name','surname'])->
+        orderBy('surname')->
+        get();
+       return view('books.create',compact('authors'));
     }
     /**
      * Show the form for creating a new resource.

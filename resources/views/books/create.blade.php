@@ -12,10 +12,13 @@
             <div class="btn btn-danger">{{ $error }}</div>
         @endforeach
     @endif
+    @foreach($authors as $author)
+    @php $lista[$author->id] = $author->name.' '.$author->surname; @endphp
+    @endforeach
 
     <div class="form-group">
         {!! Form::label('author', "Autor:", ['class'=>'form-inline']) !!}
-        {!! Form::select('author', ['1' => 'Author 1', '2' => 'Author 2', '3' => 'Author 3'], null, ['placeholder' => '','class'=>'form-control']); !!}
+        {!! Form::select('author', $lista, null, ['placeholder' => '','class'=>'form-control']); !!}
     </div>
     <div class="form-group">
         {!! Form::label('title', "Tytuł", ['class'=>'form-inline']) !!}
@@ -32,7 +35,7 @@
 
     <div class="form-group">
         {!! Form::submit('Zapisz', ['class'=>'btn btn-primary']) !!}
-        {!! link_to_route('books.createAuthor', 'Nowy Autor', [], ['class'=>'btn btn-primary']) !!}
+        {!! link_to_route('authors.index', 'Edytuj Autorów', [], ['class'=>'btn btn-primary']) !!}
         {!! link_to_route('books.index', 'Powrót', [], ['class'=>'btn btn-default']) !!}
     </div>
     {!! Form::close() !!}
