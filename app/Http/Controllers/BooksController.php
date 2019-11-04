@@ -7,7 +7,8 @@ use App\Book;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\BookSearchRequest;
 use Exception;
-use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Response;
 
 
@@ -40,6 +41,7 @@ class BooksController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Response
+     * @throws GuzzleException
      */
     public function create()
     {
@@ -47,22 +49,22 @@ class BooksController extends Controller
         $authors = Author::select(['id','name','surname'])->
         orderBy('surname')->
         get();
-       return view('books.create',compact('authors'));
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function createAuthor()
-    {
-        //return view('books.create');
+
+        $client = new Client;
+        $data =$client->request('GET', 'https://restcountries.eu/rest/v2/all', [
+            'headers' => [
+                'Accept'     => 'application/json',
+                'Content-type' => 'application/json'
+            ]
+        ]);
+        $countries = json_decode($data->getBody()->getContents());
+       return view('books.create',compact(['authors','countries']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param BookRequest $request
      * @return Response
      */
     public function store(BookRequest $request)
@@ -128,17 +130,22 @@ class BooksController extends Controller
      *
      * @param Book $book
      * @return Response
+     * @throws GuzzleException
      */
     public function edit(Book $book)
     {
-        $countries = Author::select(['country'])->
-        groupBy('country')->
-        orderBy('country')->
-        get();
-
         $authors = Author::select(['id','name','surname'])->
         orderBy('surname')->
         get();
+
+        $client = new Client;
+        $data =$client->request('GET', 'https://restcountries.eu/rest/v2/all', [
+            'headers' => [
+                'Accept'     => 'application/json',
+                'Content-type' => 'application/json'
+            ]
+        ]);
+        $countries = json_decode($data->getBody()->getContents());
 
         return view('books.edit',compact(['book','countries','authors']));
     }

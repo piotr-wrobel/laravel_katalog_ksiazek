@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Author;
 use App\Http\Requests\AuthorRequest;
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use GuzzleHttp\Client;
 
 class AuthorsController extends Controller
 {
@@ -35,13 +37,19 @@ class AuthorsController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Response
+     * @throws GuzzleException
      */
     public function create()
     {
-        $countries = Author::select(['country'])->
-        groupBy('country')->
-        orderBy('country')->
-        get();
+        $client = new Client;
+        $data =$client->request('GET', 'https://restcountries.eu/rest/v2/all', [
+            'headers' => [
+                'Accept'     => 'application/json',
+                'Content-type' => 'application/json'
+            ]
+        ]);
+        $countries = json_decode($data->getBody()->getContents());
+
         return view('authors.create',compact('countries'));
     }
 
@@ -70,12 +78,11 @@ class AuthorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return void
      */
-    public function show(Request $request)
+    public function show()
     {
-
+        //
     }
 
     /**
@@ -83,13 +90,19 @@ class AuthorsController extends Controller
      *
      * @param Author $author
      * @return void
+     * @throws GuzzleException
      */
     public function edit(Author $author)
     {
-        $countries = Author::select(['country'])->
-        groupBy('country')->
-        orderBy('country')->
-        get();
+        $client = new Client;
+        $data =$client->request('GET', 'https://restcountries.eu/rest/v2/all', [
+            'headers' => [
+                'Accept'     => 'application/json',
+                'Content-type' => 'application/json'
+            ]
+        ]);
+        $countries = json_decode($data->getBody()->getContents());
+
         return view('authors.edit',compact(['author','countries']));
     }
 

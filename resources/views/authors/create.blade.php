@@ -13,7 +13,7 @@
         @endforeach
     @endif
     @foreach($countries as $country)
-        @php $lista[$country->country] = $country->country; @endphp
+        @php $lista[$country->name] = $country->name; @endphp
     @endforeach
 
     <div class="form-group">

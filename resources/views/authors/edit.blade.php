@@ -13,7 +13,7 @@
         @endforeach
     @endif
     @foreach($countries as $country)
-        @php $lista[$country->country] = $country->country; @endphp
+        @php $countries_list[$country->name] = $country->name; @endphp
     @endforeach
 
     <div class="form-group">
@@ -27,7 +27,7 @@
 
     <div class="form-group">
         {!! Form::label('country', "Kraj:", ['class'=>'form-inline']) !!}
-        {!! Form::select('country', $lista, $author->country, ['placeholder' => '','class'=>'form-control']); !!}
+        {!! Form::select('country', $countries_list, $author->country, ['placeholder' => '','class'=>'form-control']); !!}
     </div>
 
     <div class="form-group">

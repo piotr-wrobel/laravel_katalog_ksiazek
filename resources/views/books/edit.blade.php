@@ -13,12 +13,15 @@
         @endforeach
     @endif
     @foreach($authors as $author)
-        @php $lista[$author->id] = $author->name.' '.$author->surname; @endphp
+        @php $authors_list[$author->id] = $author->name.' '.$author->surname; @endphp
+    @endforeach
+    @foreach($countries as $country)
+        @php $countries_list[$country->name] = $country->name; @endphp
     @endforeach
 
     <div class="form-group">
         {!! Form::label('author', "Autor:", ['class'=>'form-inline']) !!}
-        {!! Form::select('author', $lista, $book->author, ['placeholder' => '','class'=>'form-control']); !!}
+        {!! Form::select('author', $authors_list, $book->author, ['placeholder' => '','class'=>'form-control']); !!}
     </div>
     <div class="form-group">
         {!! Form::label('title', "Tytuł", ['class'=>'form-inline']) !!}
@@ -30,7 +33,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('translation', "Język/Tłumaczenie", ['class'=>'form-inline']) !!}
-        {!! Form::select('translation', ['Poland' => 'Poland', 'Panama' => 'Panama', 'Austria' => 'Austria'], $book->translation, ['placeholder' => '','class'=>'form-control']); !!}
+        {!! Form::select('translation', $countries_list, $book->translation, ['placeholder' => '','class'=>'form-control']); !!}
     </div>
 
     <div class="form-group">
