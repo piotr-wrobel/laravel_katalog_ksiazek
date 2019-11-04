@@ -7,7 +7,6 @@ use App\Http\Requests\AuthorRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Input;
 
 class AuthorsController extends Controller
 {
@@ -82,7 +81,7 @@ class AuthorsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Author $author
      * @return void
      */
     public function edit(Author $author)

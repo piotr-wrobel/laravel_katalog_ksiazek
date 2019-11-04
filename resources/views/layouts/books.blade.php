@@ -72,6 +72,7 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="content">
+        @yield('messages')
         <div class="title m-b-md">
             @yield('title')
         </div>

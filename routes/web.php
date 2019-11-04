@@ -36,6 +36,21 @@ Route::post('books/store',[
     'as' => 'books.store'
 ]);
 
+Route::delete('books/{book}',[
+    'uses' => 'BooksController@destroy',
+    'as' => 'books.delete'
+]);
+
+Route::get('books/edit/{book}',[
+    'uses' => 'BooksController@edit',
+    'as' => 'books.edit'
+]);
+
+Route::put('books/{book}',[
+    'uses' => 'BooksController@update',
+    'as' => 'books.update'
+]);
+
 Route::get('authors',[
     'uses' => 'AuthorsController@index',
     'as' => 'authors.index'

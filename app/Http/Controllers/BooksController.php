@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Book;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\BookSearchRequest;
+use Exception;
 use Illuminate\Http\Request;
-use App\Book;
+use Illuminate\Http\Response;
+
 
 class BooksController extends Controller
 {
@@ -22,21 +25,21 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $books = Book::join('authors', 'books.author', '=', 'authors.id')->
             select(['books.*','authors.name','authors.surname'])->
             orderBy('publication_date', 'DESC')->
-            paginate(10);
+            paginate(5);
         return view('books.index', compact('books'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -49,7 +52,7 @@ class BooksController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function createAuthor()
     {
@@ -60,7 +63,7 @@ class BooksController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(BookRequest $request)
     {
@@ -71,7 +74,7 @@ class BooksController extends Controller
     /**
      * Show the form for searching resources.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function search()
     {
@@ -80,7 +83,7 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(BookSearchRequest $request)
     {
@@ -123,34 +126,49 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Book $book
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        //
+        $countries = Author::select(['country'])->
+        groupBy('country')->
+        orderBy('country')->
+        get();
+
+        $authors = Author::select(['id','name','surname'])->
+        orderBy('surname')->
+        get();
+
+        return view('books.edit',compact(['book','countries','authors']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param BookRequest $request
+     * @param Book $book
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, Book $book)
     {
-        //
+        $book->update($request->all());
+        return redirect()->route('books.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Book $book
+     * @return Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        try {
+            $book->delete();
+        }catch(Exception $e) {
+            return redirect()->route('books.index')->with('warning', 'Nie można usunąć pozycji '.$book->title);
+        }
+        return redirect()->route('books.index')->with('success', 'Pozycja usunięta poprawnie');
     }
 }
